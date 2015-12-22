@@ -2,19 +2,35 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= content_for?(:title) ? yield(:title) : "Rails Devise Pundit" %></title>
+    <title><%= content_for?(:title) ? yield(:title) : "Veterinary Practice" %></title>
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Rails Devise Pundit" %>">
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
     <%= csrf_meta_tags %>
   </head>
   <body>
-    <header>
-      <%= render 'layouts/navigation' %>
-    </header>
-    <main role="main">
-       <%= render 'layouts/messages' %>
+  <div class="container">
+    <section>
+      <div class="page-header">
+        <h3 class="pull-left">
+          Veterinary Practice:
+          <% if user_signed_in? %>
+          <span> <%= current_user.name %>(<%= current_user.role %>)</span>
+          <% end %>
+        </h3>
+        <div class="pull-right">
+          <div class="btn-group">
+              <% if user_signed_in? %>
+                   <%= link_to 'Sign out', destroy_user_session_path, :method=>'delete', :class => "btn btn-primary"  %>
+              <% else %>
+                    <%= link_to 'Sign in', new_user_session_path, :class => "btn btn-primary" %>
+              <% end %>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+      </div>
        <%= yield %>
-    </main>
+    </section>
+  </div>
   </body>
 </html>

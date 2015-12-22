@@ -1,0 +1,51 @@
+<p id="notice"><%= notice %></p>
+
+<table class="table">
+  <% if current_user.customer? %>
+      <thead>
+        <tr>
+          <th>Name of pet</th>
+          <th>Date of Next Appointment</th>
+          <th>Reason for Visit</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @pets.each do |pet| %>
+          <tr>
+            <td><%= pet.name_of_pet %></td>
+            <td><%= pet.appointment.date_of_visit %></td>
+            <td><%= pet.appointment.reason_for_visit %></td>
+          </tr>
+        <% end %>
+      </tbody>
+  <% else %>
+      <thead>
+          <tr>
+            <th>Name of pet</th>
+            <th>Type of Pet</th>
+            <th>Breed</th>
+            <th>Age</th>
+            <th>weight</th>
+            <th>Date of Last Visit</th>
+            <th></th>
+          </tr>
+      </thead>
+
+      <tbody>
+      <% @pets.each do |pet| %>
+          <tr>
+            <td><%= pet.name_of_pet %></td>
+            <td><%= pet.type_of_pet %></td>
+            <td><%= pet.breed %></td>
+            <td><%= pet.age %></td>
+            <td><%= pet.weight %></td>
+            <td><%= pet.date_of_last_visit %></td>
+            <td><%= link_to 'Edit', edit_pet_path(pet) %></td>
+          </tr>
+      <% end %>
+      </tbody>
+  <% end %>
+</table>
+
+<br>

@@ -11,23 +11,52 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151221100331) do
+ActiveRecord::Schema.define(version: 20151221113920) do
+
+  create_table "appointments", force: :cascade do |t|
+    t.date     "date_of_visit",           null: false
+    t.integer  "pet_id",                  null: false
+    t.integer  "customer_id",             null: false
+    t.string   "reminder_of_appointment", null: false
+    t.string   "reason_for_visit",        null: false
+    t.integer  "user_id",                 null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  create_table "pets", force: :cascade do |t|
+    t.string   "name_of_pet",        limit: 35, null: false
+    t.string   "type_of_pet",                   null: false
+    t.string   "breed",              limit: 35, null: false
+    t.integer  "age",                           null: false
+    t.float    "weight",                        null: false
+    t.date     "date_of_last_visit"
+    t.integer  "user_id",                       null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+  end
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "email",                                 default: "", null: false
+    t.string   "encrypted_password",                    default: "", null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",                         default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
-    t.string   "name"
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
+    t.string   "name",                                               null: false
     t.integer  "role"
+    t.string   "address"
+    t.string   "city"
+    t.string   "state"
+    t.integer  "zip",                         limit: 5
+    t.string   "school_received_degree_from"
+    t.integer  "years_in_practice"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

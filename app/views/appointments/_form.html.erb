@@ -1,0 +1,92 @@
+<%= form_for(@appointment) do |f| %>
+  <% if @appointment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@appointment.errors.count, "error") %> prohibited this appointment from being saved:</h2>
+
+      <ul>
+      <% @appointment.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :date_of_visit %><br>
+    <%= f.date_select :date_of_visit %>
+  </div>
+    <hr/>
+  <% if current_user.receptionist? %>
+      <div class="field">
+        <%= f.label 'Customer' %><br>
+        <%= fields_for :customer do |customer_fields| %>
+            <div class="field">
+                <%= customer_fields.label :name %><br>
+                <%= customer_fields.text_field :name, class: "form-control" %>
+            </div>
+            <div class="field">
+                <%= customer_fields.label :email %><br>
+                <%= customer_fields.email_field :email, class: "form-control" %>
+            </div>
+            <div class="field">
+              <%= customer_fields.label :password %><br>
+              <%= customer_fields.password_field :password, class: "form-control" %>
+            </div>
+            <div class="field">
+              <%= customer_fields.label :confirm_password %><br>
+              <%= customer_fields.password_field :confirm_password, class: "form-control" %>
+            </div>
+        <% end %>
+      </div>
+  <% end %>
+  <hr/>
+  <div class="field">
+    <%= f.label 'Pet' %><br>
+    <%= fields_for :pet do |pet_fields| %>
+        <% if current_user.receptionist? %>
+            <div class="field">
+              <%= pet_fields.label :name_of_pet %><br>
+              <%= pet_fields.text_field :name_of_pet, class: "form-control" %>
+            </div>
+            <div class="field">
+              <%= pet_fields.label :type_of_pet %><br>
+              <%= pet_fields.select(:type_of_pet, ['dog', 'cat', 'bird'], class: "form-control") %>
+            </div>
+            <div class="field">
+              <%= pet_fields.label :breed %><br>
+              <%= pet_fields.text_field :breed, class: "form-control" %>
+            </div>
+            <div class="field">
+              <%= pet_fields.label :age %><br>
+              <%= pet_fields.number_field :age, class: "form-control" %>
+            </div>
+            <div class="field">
+              <%= pet_fields.label :weight %><br>
+              <%= pet_fields.number_field :weight, class: "form-control" %>
+            </div>
+        <% else %>
+            <div class="field">
+              <%= pet_fields.label :date_of_last_visit %><br>
+              <%= pet_fields.date_select :date_of_last_visit %>
+            </div>
+        <% end %>
+    <% end %>
+  </div>
+  <% if current_user.receptionist? %>
+      <div class="field">
+        <%= f.label 'Doctor' %><br>
+        <%= collection_select(:appointment, :user_id, User.where(:role => [User.roles[:doctor], User.roles[:admin]]), :id, :name, :prompt => 'Please select doctor', class: "form-control") %>
+      </div>
+      <div class="field">
+        <%= f.label :reminder_of_appointment %><br>
+        <%= f.text_field :reminder_of_appointment, class: "form-control" %>
+      </div>
+      <div class="field">
+        <%= f.label :reason_for_visit %><br>
+        <%= f.text_field :reason_for_visit, class: "form-control" %>
+      </div>
+    <% end %>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

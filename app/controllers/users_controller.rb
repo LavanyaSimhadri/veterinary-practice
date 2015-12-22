@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_action :admin_only, :except => :show
 
   def index
-    @users = User.all
+    @users = User.all.where.not(:role => [User.roles['customer'], User.roles['receptionist']])
   end
 
   def show

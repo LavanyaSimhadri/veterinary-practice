@@ -80,3 +80,9 @@ section {
   @extend .btn-primary;
   @extend .btn-xs;
 }
+
+select.date-select {
+  width:auto;
+  border: 1px solid #cccccc;
+  background-color: #ffffff;
+}
