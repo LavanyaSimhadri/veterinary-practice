@@ -29,20 +29,27 @@ Learn more about [Installing Rails](http://railsapps.github.io/installing-rails.
 Getting Started
 ---------------
 
-Documentation and Support
--------------------------
+Veterinary Practice
+================
 
-Issues
--------------
+Run the rails server
 
-Similar Projects
-----------------
+Admin:
+email: lavanya@example.com
+password: test1234
 
-Contributing
-------------
+Doctor1:
+email: bob@example.com
+password: test1234
 
-Credits
--------
+Doctor2:
+email: susan@example.com
+password: test1234
 
-License
--------
+receptionist:
+email: jessica@example.com
+password: test1234
+
+customer:
+email: praveen@example.com
+password: test1234
